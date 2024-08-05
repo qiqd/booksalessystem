@@ -1,7 +1,7 @@
 import request from "./request"
-export const login = (passowrd, username) => {
-    return request.post("/login", {
-        passowrd,
-        username
+export const login = (form) => {
+    return request.post("/admin/login", {
+        aname: form.username,
+        apassword: form.password
     })
 }
