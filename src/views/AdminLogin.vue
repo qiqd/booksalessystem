@@ -1,8 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { login } from '@/api/login.js'
-import { useCounterStore } from '@/stores/counter'
+import { useCounterStore } from '@/stores/counter.js'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+
 const store = useCounterStore()
+const router = useRouter()
 const form = ref({
   username: '',
   password: ''
@@ -29,8 +33,21 @@ const OnSubmit = async () => {
   }
 
   const res = await login(form.value)
-  store.setToken(res.data.data)
-  console.log(store.getToken())
+  if (res.data.state > 200) {
+    ElMessage({
+      message: res.data.message,
+      type: 'error',
+      plain: true
+    })
+    return
+  }
+  ElMessage({
+    message: '登录成功',
+    type: 'success',
+    plain: true
+  })
+  store.token = res.data.data
+  router.push('/layout')
 }
 const reset = () => {
   form.value.username = ''
