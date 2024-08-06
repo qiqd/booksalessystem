@@ -25,17 +25,22 @@ const loginout = () => {
         </div>
       </div></el-row
     >
-    <el-row :gutter="20">
+    <el-row :gutter="20" style="margin: 0">
       <el-col :span="4" :offset="0">
         <el-menu>
-          <el-menu-item index="1">首页</el-menu-item>
+          <router-link to="/index"> <el-menu-item index="1">首页</el-menu-item></router-link>
           <el-menu-item-group>
             <template #title>
               <h3>用户管理</h3>
             </template>
             <el-menu-item class="item" index="1-3">管理员</el-menu-item>
-            <el-menu-item class="item" index="1-4">员工</el-menu-item>
-            <el-menu-item class="item" index="1-4">会员</el-menu-item>
+            <router-link to="/staff">
+              <el-menu-item class="item" index="1-4">员工</el-menu-item></router-link
+            >
+
+            <router-link to="/vip"
+              ><el-menu-item class="item" index="1-4">会员</el-menu-item></router-link
+            >
           </el-menu-item-group>
           <el-menu-item-group title="图书管理">
             <template #title>
@@ -56,7 +61,9 @@ const loginout = () => {
         </el-menu></el-col
       >
 
-      <el-col :span="16" :offset="0"> rttertr </el-col>
+      <el-col :span="20" :offset="0">
+        <router-view></router-view>
+      </el-col>
     </el-row>
   </div>
 </template>

@@ -9,8 +9,6 @@ const request = axios.create({
 });
 // 添加请求拦截器
 request.interceptors.request.use(function (config) {
-    console.log(1);
-
     // 在发送请求之前做些什么
     if (store.token != '') {
         config.headers["token"] = store.token
