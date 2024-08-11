@@ -19,7 +19,7 @@ const OrderFrom = ref({
   // dno: '',
   // onumber: '',
   // bprice: '',
-  name: '',
+  vname: '',
   sname: ''
 })
 
@@ -56,19 +56,18 @@ const handleEdit = async(index,row) => {
 
   OrderDetailData.value = (await selectOrderDetailByOno(row.ono)).data.data
   console.log(OrderDetailData.value)
-  if (row.vno == 0) {
-    OrderFrom.value.name = '顾客'
-  }
-  else {
-     OrderFrom.value.name =  VipData.value[index].vname
-  }
+  OrderFrom.value.vname =  VipData.value.find(index =>row.vno===index.vno)?.vname||'顾客'+row.vno
 
   // OrderFrom.value.dno = OrderDetailData.value[row.ono].dno
   // OrderFrom.value.onumber = OrderDetailData.value[row.ono].onumber
   // OrderFrom.value.btitle = OrderDetailData.value[row.ono].btitle
   // OrderFrom.value.bprice = OrderDetailData.value[row.ono].bprice
   // OrderFrom.value.bno = OrderDetailData.value[row.ono].bno
-  OrderFrom.value.sname=row.sno
+  OrderFrom.value.sname=StaffData.value.find(index =>row.sno===index.sno)?.sname||''
+
+
+
+
 
   detailVisible.value = true
 }
@@ -97,7 +96,7 @@ onMounted(() => {
   <el-dialog v-model="detailVisible" title="订单详情" width="660">
     <el-form :model="OrderFrom" label-position="right" label-width="auto">
       <el-form-item label="顾客名字">
-        <el-input v-model="OrderFrom.name" placeholder="" clearable disabled />
+        <el-input v-model="OrderFrom.vname" placeholder="" clearable disabled />
       </el-form-item>
 
       <el-form-item label="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp店员">
@@ -107,12 +106,12 @@ onMounted(() => {
       <el-table :data="OrderDetailData" style="width: 100%;height: 100%" sortable>
         <el-table-column align="center" label="图书编号" width="100" prop="bno"></el-table-column>
         <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
-        <el-table-column align="center" label="价格" width="100" prop="bprice"></el-table-column>
-        <el-table-column align="center" label="数量" width="100" prop="onumber"></el-table-column>
+        <el-table-column align="center" label="价格(元)" width="100" prop="bprice"></el-table-column>
+        <el-table-column align="center" label="数量（本）" width="100" prop="onumber"></el-table-column>
         <el-table-column align="center" label="折扣" width="100" prop="dno"></el-table-column>
       </el-table>
       <el-form-item>
-        <el-button @click="detailVisible = false" type="primary" >确认</el-button>
+        <el-button @click="detailVisible = false" type="primary"  label-position="right">确认</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -120,7 +119,13 @@ onMounted(() => {
   <el-table :data="OrdersData" height="600" style="width: 100%" sortable>
     <el-table-column align="center" sortable label="编号" width="220" prop="ono">
     </el-table-column>
-    <el-table-column align="center" label="顾客" width="220" prop="vno"> </el-table-column>
+    <el-table-column align="center" label="顾客" width="220" prop="vno">
+      <template #default="scope">
+  <span>
+    {{ (VipData.find(item => item.vno === scope.row.vno)?.vname) || `顾客${scope.row.ono}` }}
+  </span>
+      </template>
+    </el-table-column>
 
     <el-table-column align="center" label="总价（元）" width="220" prop="totalPrice"> </el-table-column>
     <el-table-column align="center" label="时间" width="220" prop="otime"> </el-table-column>
