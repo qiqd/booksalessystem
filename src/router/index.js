@@ -34,6 +34,13 @@ const router = createRouter({
           name: 'manager',
           component: () => import("@/views/AdminManager.vue")
         },
+        {
+          path: '/orders',
+          name: 'orders',
+          component: () => import("@/views/Orders.vue")
+        },
+
+
       ]
     },
 

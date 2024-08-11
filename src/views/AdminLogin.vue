@@ -36,6 +36,7 @@ const OnSubmit = async () => {
   if (res.data.state > 200) {
     ElMessage({
       message: res.data.message,
+
       type: 'error',
       plain: true
     })

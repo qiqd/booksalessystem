@@ -83,9 +83,16 @@ const changeColor = (num) => {
             <template #title>
               <h3>订单管理</h3>
             </template>
-            <el-menu-item class="item" index="1-3">订单记录</el-menu-item>
-            <el-menu-item class="item" index="1-4">订单详情</el-menu-item>
-            <el-menu-item class="item" index="1-4">其他订单</el-menu-item>
+            <router-link to="/orders">
+              <el-menu-item
+                class="item"
+                index="1-3"
+                @click="changeColor(7)"
+                :class="{ active: defaltNum == 7 }"
+              >订单</el-menu-item
+              ></router-link>
+
+
           </el-menu-item-group>
         </el-menu></el-col
       >
