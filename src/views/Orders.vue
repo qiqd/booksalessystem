@@ -123,8 +123,8 @@ onMounted(() => {
       </template>
     </el-table-column>
 
-    <el-table-column align="center" label="总价（元）" width="220" prop="totalPrice"> </el-table-column>
-    <el-table-column align="center" label="时间" width="220" prop="otime"> </el-table-column>
+    <el-table-column align="center" sortable label="总价（元）" width="220" prop="totalPrice"> </el-table-column>
+    <el-table-column align="center" sortable label="时间" width="220" prop="otime"> </el-table-column>
 
     <el-table-column align="center" label="操作">
       <template #default="scope">

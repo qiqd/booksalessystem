@@ -75,9 +75,23 @@ const changeColor = (num) => {
             <template #title>
               <h3>图书管理</h3>
             </template>
-            <el-menu-item class="item" index="5">图书信息</el-menu-item>
-            <el-menu-item class="item" index="6">图书</el-menu-item>
-            <el-menu-item class="item" index="7">会员</el-menu-item>
+
+            <router-link to="/books">
+              <el-menu-item
+                class="item"
+                index="1-3"
+                @click="changeColor(4)"
+                :class="{ active: defaltNum == 4 }"
+              >图书信息</el-menu-item
+              ></router-link>
+            <router-link to="/shelf">
+              <el-menu-item
+                class="item"
+                index="1-3"
+                @click="changeColor(5)"
+                :class="{ active: defaltNum == 5 }"
+              >库存信息</el-menu-item
+              ></router-link>
           </el-menu-item-group>
           <el-menu-item-group title="订单管理">
             <template #title>
@@ -87,8 +101,8 @@ const changeColor = (num) => {
               <el-menu-item
                 class="item"
                 index="1-3"
-                @click="changeColor(7)"
-                :class="{ active: defaltNum == 7 }"
+                @click="changeColor(6)"
+                :class="{ active: defaltNum == 6 }"
               >订单</el-menu-item
               ></router-link>
 
