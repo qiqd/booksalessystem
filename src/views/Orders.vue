@@ -2,23 +2,20 @@
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { deleteOrderBySno, selectAllOrder,selectOrderDetailByOno } from '@/api/order'
-import { getAllVip } from '@/api/vip'
+import { getAllDiscount, getAllVip } from '@/api/vip'
 import { getAllStaff} from '@/api/staff.js'
 const OrdersData = ref([])
 const OrderDetailData = ref([])
 const VipData = ref([])
 const StaffData = ref([])
+const DiscountData = ref([])
 const dialogVisible = ref(false)
 const detailVisible = ref(false)
 
 const deleteOrderNo = ref()
 
 const OrderFrom = ref({
-  // bno: '',
-  // btitle: '',
-  // dno: '',
-  // onumber: '',
-  // bprice: '',
+
   vname: '',
   sname: ''
 })
@@ -27,7 +24,7 @@ const getOrderData = async () => {
   OrdersData.value = (await selectAllOrder()).data.data
   VipData.value = (await getAllVip()).data.data
   StaffData.value = (await getAllStaff()).data.data
-
+  DiscountData.value = (await getAllDiscount()).data.data
 }
 
 const confirmDelete = () => {
@@ -55,18 +52,11 @@ const confirmDelete = () => {
 const handleEdit = async(index,row) => {
 
   OrderDetailData.value = (await selectOrderDetailByOno(row.ono)).data.data
-  console.log(OrderDetailData.value)
+
+
   OrderFrom.value.vname =  VipData.value.find(index =>row.vno===index.vno)?.vname||'顾客'+row.vno
 
-  // OrderFrom.value.dno = OrderDetailData.value[row.ono].dno
-  // OrderFrom.value.onumber = OrderDetailData.value[row.ono].onumber
-  // OrderFrom.value.btitle = OrderDetailData.value[row.ono].btitle
-  // OrderFrom.value.bprice = OrderDetailData.value[row.ono].bprice
-  // OrderFrom.value.bno = OrderDetailData.value[row.ono].bno
-  OrderFrom.value.sname=StaffData.value.find(index =>row.sno===index.sno)?.sname||''
-
-
-
+  OrderFrom.value.sname=StaffData.value.find(index =>row.sno===index.sno)?.sname||'不知道哪位牛马'
 
 
   detailVisible.value = true
@@ -96,19 +86,25 @@ onMounted(() => {
   <el-dialog v-model="detailVisible" title="订单详情" width="660">
     <el-form :model="OrderFrom" label-position="right" label-width="auto">
       <el-form-item label="顾客名字">
-        <el-input v-model="OrderFrom.vname" placeholder="" clearable disabled />
+        <el-input v-model="OrderFrom.vname" placeholder=""  disabled />
       </el-form-item>
 
       <el-form-item label="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp店员">
-        <el-input v-model="OrderFrom.sname" placeholder="" clearable disabled />
+        <el-input v-model="OrderFrom.sname" placeholder=""  disabled />
       </el-form-item>
 
       <el-table :data="OrderDetailData" style="width: 100%;height: 100%" sortable>
         <el-table-column align="center" label="图书编号" width="100" prop="bno"></el-table-column>
         <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
         <el-table-column align="center" label="价格(元)" width="100" prop="bprice"></el-table-column>
-        <el-table-column align="center" label="数量（本）" width="100" prop="onumber"></el-table-column>
-        <el-table-column align="center" label="折扣" width="100" prop="dno"></el-table-column>
+        <el-table-column align="center" label="数量（本）" width="100" prop="odnumber"></el-table-column>
+        <el-table-column align="center" label="折扣" width="100" prop="dno">
+          <template #default="scope">
+          <span>
+          {{ (DiscountData.find(item => item.dno === scope.row.dno)?.ddiscount) || `${scope.row.dno}` }}
+           </span>
+          </template>
+        </el-table-column>
       </el-table>
       <el-form-item>
         <el-button @click="detailVisible = false" type="primary"  label-position="right">确认</el-button>

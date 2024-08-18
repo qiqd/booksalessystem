@@ -4,6 +4,11 @@ export const getAllVip = () => {
 
     })
 }
+export const getAllDiscount = () => {
+    return request.get("/discount", {
+
+    })
+}
 export const getVipBySno = (params) => {
     return request.get(`/vips/${params}`, {
     })
