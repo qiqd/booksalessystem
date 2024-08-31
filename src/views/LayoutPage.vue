@@ -36,138 +36,176 @@ const changeColor = (num) => {
             <el-menu-item
               class="item"
               @click="changeColor(0)"
-              index="1"
+              index="12"
               :class="{ active: defaltNum == 0 }"
-              >首页</el-menu-item
+              ><h3>首页</h3></el-menu-item
             ></router-link
           >
+          <!-- 用户管理导航栏 -->
           <el-sub-menu index="1">
             <template #title>
               <h3>用户管理</h3>
             </template>
-            <el-menu-item-group>
+            <el-sub-menu index="1-1">
+              <template #title>
+                <h3>管理员</h3>
+              </template>
               <router-link to="/manager">
                 <el-menu-item
                   class="item"
-                  index="1-1"
-                  @click="changeColor(1)"
-                  :class="{ active: defaltNum == 1 }"
-                  >管理员</el-menu-item
+                  index="1-1-3"
+                  @click="changeColor(78)"
+                  :class="{ active: defaltNum == 78 }"
+                  >操作</el-menu-item
                 ></router-link
               >
-
               <router-link to="/staff">
                 <el-menu-item
                   class="item"
-                  index="1-2"
+                  index="1-1-1"
                   @click="changeColor(2)"
                   :class="{ active: defaltNum == 2 }"
-                  >员工</el-menu-item
+                  >列表</el-menu-item
                 ></router-link
               >
-
-              <router-link to="/vip"
-                ><el-menu-item
+              <router-link to="/staff">
+                <el-menu-item
                   class="item"
-                  index="1-3"
+                  index="1-1-2"
                   @click="changeColor(3)"
                   :class="{ active: defaltNum == 3 }"
-                  >会员</el-menu-item
+                  >新增</el-menu-item
                 ></router-link
               >
-            </el-menu-item-group>
+            </el-sub-menu>
+            <el-sub-menu index="1-2">
+              <template #title>
+                <h3>会员</h3>
+              </template>
+              <router-link to="/vip">
+                <el-menu-item
+                  class="item"
+                  index="1-2-1"
+                  @click="changeColor(4)"
+                  :class="{ active: defaltNum == 4 }"
+                  >列表</el-menu-item
+                ></router-link
+              >
+              <router-link to="/vip">
+                <el-menu-item
+                  class="item"
+                  index="1-2-2"
+                  @click="changeColor(5)"
+                  :class="{ active: defaltNum == 5 }"
+                  >新增</el-menu-item
+                ></router-link
+              >
+            </el-sub-menu>
+            <el-sub-menu index="1-3">
+              <template #title>
+                <h3>员工</h3>
+              </template>
+              <router-link to="/staff">
+                <el-menu-item
+                  class="item"
+                  index="1-3-1"
+                  @click="changeColor(6)"
+                  :class="{ active: defaltNum == 6 }"
+                  >列表</el-menu-item
+                ></router-link
+              >
+              <router-link to="/staff">
+                <el-menu-item
+                  class="item"
+                  index="1-3-2"
+                  @click="changeColor(7)"
+                  :class="{ active: defaltNum == 7 }"
+                  >新增</el-menu-item
+                ></router-link
+              >
+            </el-sub-menu>
           </el-sub-menu>
+          <!-- 图书分类导航栏 -->
           <el-sub-menu index="2">
+            <template #title>
+              <h3>图书分类</h3>
+            </template>
+
+            <router-link to="/shelf">
+              <el-menu-item
+                class="item"
+                index="2-1-1"
+                @click="changeColor(11)"
+                :class="{ active: defaltNum == 11 }"
+                >列表</el-menu-item
+              ></router-link
+            >
+            <router-link to="/shelf">
+              <el-menu-item
+                class="item"
+                index="2-1-2"
+                @click="changeColor(12)"
+                :class="{ active: defaltNum == 12 }"
+                >新增</el-menu-item
+              ></router-link
+            >
+          </el-sub-menu>
+          <!-- 图书管理导航栏 -->
+          <el-sub-menu index="3">
             <template #title>
               <h3>图书管理</h3>
             </template>
-            <el-menu-item-group>
-              <router-link to="/books">
-                <el-menu-item
-                  class="item"
-                  index="2-1"
-                  @click="changeColor(4)"
-                  :class="{ active: defaltNum == 4 }"
-                  >图书信息</el-menu-item
-                ></router-link
-              >
-              <router-link to="/shelf">
-                <el-menu-item
-                  class="item"
-                  index="2-2"
-                  @click="changeColor(5)"
-                  :class="{ active: defaltNum == 5 }"
-                  >库存信息</el-menu-item
-                ></router-link
-              >
-            </el-menu-item-group>
-          </el-sub-menu>
 
-          <el-sub-menu index="3">
+            <router-link to="/books">
+              <el-menu-item
+                class="item"
+                index="3-1-1"
+                @click="changeColor(13)"
+                :class="{ active: defaltNum == 13 }"
+                >列表</el-menu-item
+              ></router-link
+            >
+            <router-link to="/books">
+              <el-menu-item
+                class="item"
+                index="3-1-2"
+                @click="changeColor(14)"
+                :class="{ active: defaltNum == 14 }"
+                >新增</el-menu-item
+              ></router-link
+            >
+          </el-sub-menu>
+          <!-- 订单管理导航栏 -->
+          <el-sub-menu index="4">
             <template #title>
               <h3>订单管理</h3>
             </template>
+
             <router-link to="/orders">
               <el-menu-item
                 class="item"
-                index="3-1"
-                @click="changeColor(6)"
-                :class="{ active: defaltNum == 6 }"
-                >订单管理</el-menu-item
+                index="4-1-1"
+                @click="changeColor(155)"
+                :class="{ active: defaltNum == 155 }"
+                >列表</el-menu-item
               ></router-link
-            ></el-sub-menu
-          >
-          <el-sub-menu index="4">
+            >
+          </el-sub-menu>
+          <!-- 个人信息 -->
+          <el-sub-menu index="5">
             <template #title>
-              <h3>搜索相关</h3>
+              <h3>修改密码</h3>
             </template>
-            <el-menu-item-group>
-              <router-link to="/orders">
-                <el-menu-item
-                  class="item"
-                  index="4-1"
-                  @click="changeColor(7)"
-                  :class="{ active: defaltNum == 7 }"
-                  >会员搜索</el-menu-item
-                ></router-link
-              >
-              <router-link to="/orders">
-                <el-menu-item
-                  class="item"
-                  index="4-2"
-                  @click="changeColor(8)"
-                  :class="{ active: defaltNum == 8 }"
-                  >员工搜索</el-menu-item
-                ></router-link
-              >
-              <router-link to="/orders">
-                <el-menu-item
-                  class="item"
-                  index="4-3"
-                  @click="changeColor(9)"
-                  :class="{ active: defaltNum == 9 }"
-                  >图书搜索</el-menu-item
-                ></router-link
-              >
-              <router-link to="/orders">
-                <el-menu-item
-                  class="item"
-                  index="4-4"
-                  @click="changeColor(10)"
-                  :class="{ active: defaltNum == 10 }"
-                  >订单搜索</el-menu-item
-                ></router-link
-              >
-              <router-link to="/orders">
-                <el-menu-item
-                  class="item"
-                  index="4-5"
-                  @click="changeColor(6)"
-                  :class="{ active: defaltNum == 6 }"
-                  >库存搜索</el-menu-item
-                ></router-link
-              >
-            </el-menu-item-group>
+
+            <router-link to="/staff">
+              <el-menu-item
+                class="item"
+                index="5-1-1"
+                @click="changeColor(175)"
+                :class="{ active: defaltNum == 175 }"
+                >修改密码</el-menu-item
+              ></router-link
+            >
           </el-sub-menu>
         </el-menu>
       </el-col>
@@ -258,7 +296,14 @@ const changeColor = (num) => {
   font-size: 15px;
   height: 44px;
   border-radius: 8px;
+  h3 {
+    display: block;
+    font-size: 15px;
+    height: 58px;
+    border-radius: 8px;
+  }
 }
+
 .main-title .info:last-child::hover {
   color: #f50000;
 }
