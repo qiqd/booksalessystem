@@ -56,25 +56,25 @@ const changeColor = (num) => {
                   index="1-1-3"
                   @click="changeColor(78)"
                   :class="{ active: defaltNum == 78 }"
-                  >操作</el-menu-item
+                  >管理员操作</el-menu-item
                 ></router-link
               >
-              <router-link to="/staff">
+              <router-link to="/admin">
                 <el-menu-item
                   class="item"
                   index="1-1-1"
                   @click="changeColor(2)"
                   :class="{ active: defaltNum == 2 }"
-                  >列表</el-menu-item
+                  >管理员列表</el-menu-item
                 ></router-link
               >
-              <router-link to="/staff">
+              <router-link to="/AdminIncrease">
                 <el-menu-item
                   class="item"
                   index="1-1-2"
                   @click="changeColor(3)"
                   :class="{ active: defaltNum == 3 }"
-                  >新增</el-menu-item
+                  >新增管理员</el-menu-item
                 ></router-link
               >
             </el-sub-menu>
@@ -88,16 +88,16 @@ const changeColor = (num) => {
                   index="1-2-1"
                   @click="changeColor(4)"
                   :class="{ active: defaltNum == 4 }"
-                  >列表</el-menu-item
+                  >会员列表</el-menu-item
                 ></router-link
               >
-              <router-link to="/vip">
+              <router-link to="/VipIncrease">
                 <el-menu-item
                   class="item"
                   index="1-2-2"
                   @click="changeColor(5)"
                   :class="{ active: defaltNum == 5 }"
-                  >新增</el-menu-item
+                  >新增会员</el-menu-item
                 ></router-link
               >
             </el-sub-menu>
@@ -114,7 +114,7 @@ const changeColor = (num) => {
                   >列表</el-menu-item
                 ></router-link
               >
-              <router-link to="/staff">
+              <router-link to="/StaffIncrease">
                 <el-menu-item
                   class="item"
                   index="1-3-2"
@@ -185,7 +185,7 @@ const changeColor = (num) => {
               <el-menu-item
                 class="item"
                 index="4-1-1"
-                @click="changeColor(155)"
+                @click="changeColor(15)"
                 :class="{ active: defaltNum == 155 }"
                 >列表</el-menu-item
               ></router-link
@@ -194,15 +194,15 @@ const changeColor = (num) => {
           <!-- 个人信息 -->
           <el-sub-menu index="5">
             <template #title>
-              <h3>修改密码</h3>
+              <h3>个人信息</h3>
             </template>
 
             <router-link to="/staff">
               <el-menu-item
                 class="item"
                 index="5-1-1"
-                @click="changeColor(175)"
-                :class="{ active: defaltNum == 175 }"
+                @click="changeColor(16)"
+                :class="{ active: defaltNum == 16 }"
                 >修改密码</el-menu-item
               ></router-link
             >

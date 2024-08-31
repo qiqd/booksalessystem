@@ -25,6 +25,11 @@ const router = createRouter({
           component: () => import("@/views/StaffManager.vue")
         },
         {
+          path: '/StaffIncrease',
+          name: 'StaffIncrease',
+          component: () => import("@/views/StaffIncrease.vue")
+        },
+        {
           path: '/vip',
           name: 'vip',
           component: () => import("@/views/VipUser.vue")
@@ -33,6 +38,11 @@ const router = createRouter({
           path: '/manager',
           name: 'manager',
           component: () => import("@/views/AdminManager.vue")
+        },
+        {
+          path: '/admin',
+          name: 'admin',
+          component: () => import("@/views/AdminInfo.vue")
         },
         {
           path: '/orders',
@@ -48,6 +58,16 @@ const router = createRouter({
           path: '/shelf',
           name: 'shelf',
           component: () => import("@/views/ShelfInfo.vue")
+        },
+        {
+          path: '/AdminIncrease',
+          name: 'AdminIncrease',
+          component: () => import("@/views/AdminIncrease.vue")
+        },
+        {
+          path: '/VipIncrease',
+          name: 'VipIncrease',
+          component: () => import("@/views/VipIncrease.vue")
         },
 
 

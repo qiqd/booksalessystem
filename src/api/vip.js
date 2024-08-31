@@ -13,8 +13,8 @@ export const getVipBySno = (params) => {
     return request.get(`/vips/${params}`, {
     })
 }
-export const addVip = (vno, from) => {
-    return request.post(`/vips/${vno}`, {
+export const addVip = (from) => {
+    return request.post(`/vips/vipIncrease`, {
         "vemail": from.vemail,
         "vgender": from.vgender,
         "vname": from.vname,

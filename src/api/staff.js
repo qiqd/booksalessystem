@@ -8,12 +8,12 @@ export const getStaffBySno = (params) => {
     return request.get(`/staffs/${params}`, {
     })
 }
-export const addStaff = (semail, sgender, sname, sphone) => {
-    return request.post("/staffs", {
-        "semail": semail,
-        "sgender": sgender,
-        "sname": sname,
-        "sphone": sphone
+export const addStaff = (from) => {
+    return request.post(`/staffs/staffIncrease`, {
+        "semail": from.semail,
+        "sgender": from.sgender,
+        "sname": from.sname,
+        "sphone": from.sphone
     })
 
 }
