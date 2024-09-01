@@ -54,8 +54,8 @@ const changeColor = (num) => {
                 <el-menu-item
                   class="item"
                   index="1-1-3"
-                  @click="changeColor(78)"
-                  :class="{ active: defaltNum == 78 }"
+                  @click="changeColor(1)"
+                  :class="{ active: defaltNum == 1 }"
                   >管理员操作</el-menu-item
                 ></router-link
               >
@@ -111,7 +111,7 @@ const changeColor = (num) => {
                   index="1-3-1"
                   @click="changeColor(6)"
                   :class="{ active: defaltNum == 6 }"
-                  >列表</el-menu-item
+                  >员工列表</el-menu-item
                 ></router-link
               >
               <router-link to="/StaffIncrease">
@@ -120,7 +120,7 @@ const changeColor = (num) => {
                   index="1-3-2"
                   @click="changeColor(7)"
                   :class="{ active: defaltNum == 7 }"
-                  >新增</el-menu-item
+                  >新增员工</el-menu-item
                 ></router-link
               >
             </el-sub-menu>
@@ -131,22 +131,22 @@ const changeColor = (num) => {
               <h3>图书分类</h3>
             </template>
 
-            <router-link to="/shelf">
+            <router-link to="/booktype">
               <el-menu-item
                 class="item"
                 index="2-1-1"
-                @click="changeColor(11)"
-                :class="{ active: defaltNum == 11 }"
-                >列表</el-menu-item
+                @click="changeColor(8)"
+                :class="{ active: defaltNum == 8 }"
+                >图书分类列表</el-menu-item
               ></router-link
             >
             <router-link to="/shelf">
               <el-menu-item
                 class="item"
                 index="2-1-2"
-                @click="changeColor(12)"
-                :class="{ active: defaltNum == 12 }"
-                >新增</el-menu-item
+                @click="changeColor(9)"
+                :class="{ active: defaltNum == 9 }"
+                >新增图书分类</el-menu-item
               ></router-link
             >
           </el-sub-menu>
@@ -160,18 +160,18 @@ const changeColor = (num) => {
               <el-menu-item
                 class="item"
                 index="3-1-1"
-                @click="changeColor(13)"
-                :class="{ active: defaltNum == 13 }"
-                >列表</el-menu-item
+                @click="changeColor(10)"
+                :class="{ active: defaltNum == 10 }"
+                >图书列表</el-menu-item
               ></router-link
             >
             <router-link to="/books">
               <el-menu-item
                 class="item"
                 index="3-1-2"
-                @click="changeColor(14)"
-                :class="{ active: defaltNum == 14 }"
-                >新增</el-menu-item
+                @click="changeColor(11)"
+                :class="{ active: defaltNum == 11 }"
+                >新增图书</el-menu-item
               ></router-link
             >
           </el-sub-menu>
@@ -185,9 +185,9 @@ const changeColor = (num) => {
               <el-menu-item
                 class="item"
                 index="4-1-1"
-                @click="changeColor(15)"
-                :class="{ active: defaltNum == 155 }"
-                >列表</el-menu-item
+                @click="changeColor(12)"
+                :class="{ active: defaltNum == 12 }"
+                >订单列表</el-menu-item
               ></router-link
             >
           </el-sub-menu>
@@ -201,8 +201,8 @@ const changeColor = (num) => {
               <el-menu-item
                 class="item"
                 index="5-1-1"
-                @click="changeColor(16)"
-                :class="{ active: defaltNum == 16 }"
+                @click="changeColor(13)"
+                :class="{ active: defaltNum == 13 }"
                 >修改密码</el-menu-item
               ></router-link
             >

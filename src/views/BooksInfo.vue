@@ -12,7 +12,13 @@ const dialogVisible = ref(false)
 const deleteBookNo = ref()
 
 const BookFrom = ref({
-  bname: ''
+  bname: '',
+  btitle: '',
+  isbn: '',
+  bauthor: '',
+  bpublisher: '',
+  btype: '',
+  bprice: '',
 })
 // const bname = ""
 const getBookData = async () => {

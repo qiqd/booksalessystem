@@ -1,41 +1,61 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { getAllAdminer, updateAdminByAno } from '@/api/admin'
-
 import { ElMessage } from 'element-plus'
+import { deleteShelfByShelfno, getAllShelf, updateShelfByShelfno } from '@/api/book'
 
-const AdminData = ref([])
+const ShelfData = ref([])
 
 
 const dialogVisible = ref(false)
 const updateVisible = ref(false)
 
+const deleteShelfNo = ref()
+const updateShelfNo = ref()
 
-const deleteAdminNo = ref()
-const updateAdminNo = ref()
-
-const AdminFrom = ref({
-  aname: '',
-  aemail: '',
+const ShelfFrom = ref({
+  shelftype: '',
 
 })
 
-const getAdminData = async () => {
-  AdminData.value = (await getAllAdminer()).data.data
-  console.log(AdminData.value)
+const getShelfData = async () => {
+  let shelftype=""
+  ShelfData.value = (await getAllShelf(shelftype)).data.data
+
 }
 
 const confirmDelete = () => {
 
-    alert("请联系工作人员删除！")
+  deleteShelfByShelfno(deleteShelfNo.value).then((res) => {
+    if (res.data.state > 300) {
+      ElMessage({
+        message: '删除失败',
+        type: 'error',
+        plain: true
+      })
+      return
+    }
+    ElMessage({
+      message: '删除成功',
+      type: 'success',
+      plain: true
+    })
     dialogVisible.value = false
-    deleteAdminNo.value = null
-  getAdminData()
+    deleteShelfNo.value = null
+    getShelfData()
+  })
+}
+const ss = async() => {
+  const shelftype = ShelfFrom.value.shelftype;
+  try {
+    ShelfData.value = (await getAllShelf(shelftype)).data.data // 更新书籍数据
+    console.log(ShelfData.value );
+  } catch (error) {
+    console.error('Error fetching book data:', error);
+  }
 
 }
-const updateAdmin = () => {
-
-  updateAdminByAno(updateAdminNo.value, AdminFrom.value).then((res) => {
+const updateShelf= () => {
+  updateShelfByShelfno(updateShelfNo.value, ShelfFrom.value).then((res) => {
     if (res.data.state > 300) {
       ElMessage({
         message: '修改失败',
@@ -50,25 +70,20 @@ const updateAdmin = () => {
       plain: true
     })
     updateVisible.value = false
-    getAdminData()
+    getShelfData()
   })
 }
 const handleEdit = (index, row) => {
-  updateAdminNo.value = row.ano
-
-  AdminFrom.value.aemail = row.aemail
-  AdminFrom.value.aname = row.aname
-
-
+ updateShelfNo.value = row.shelfno
+  ShelfFrom.value.shelftype = row.shelftype
   updateVisible.value = true
 }
-
 const handleDelete = (index, row) => {
   dialogVisible.value = true
-  deleteAdminNo.value = row.ono
+  deleteShelfNo.value = row.shelfno
 }
 onMounted(() => {
-  getAdminData()
+  getShelfData()
 })
 </script>
 
@@ -87,10 +102,10 @@ onMounted(() => {
   <el-container >
     <el-form  label-position="right" label-width="auto">
       <el-form-item label="搜索：">
-        <el-input v-model="AdminFrom.aname"  style="width: 500px" placeholder="请输入书名" clearable/>
+        <el-input v-model="ShelfFrom.shelftype"  style="width: 500px" placeholder="shelftype" clearable/>
       </el-form-item>
       <el-form-item>
-<!--        <el-button type="primary" @click="ss">搜索</el-button>-->
+        <el-button type="primary" @click="ss">搜索</el-button>
       </el-form-item>
     </el-form>
 
@@ -98,27 +113,21 @@ onMounted(() => {
   </el-container>
   <!-- 修改员工信息弹框 -->
   <el-dialog v-model="updateVisible" title="修改vip顾客信息" width="500">
-    <el-form :model="AdminFrom" label-position="right" label-width="auto">
-      <el-form-item label="名称">
-        <el-input v-model="AdminFrom.aname" placeholder="请输入名字" clearable />
+    <el-form :model="ShelfFrom" label-position="right" label-width="auto">
+      <el-form-item label="类型">
+        <el-input v-model="ShelfFrom.shelftype" placeholder="shelftype" clearable />
       </el-form-item>
-
-      <el-form-item label="电子邮件">
-        <el-input v-model="AdminFrom.aemail" placeholder="请输入邮件号" clearable />
-      </el-form-item>
-
-
       <el-form-item>
-        <el-button type="primary" @click="updateAdmin">确认</el-button>
+        <el-button type="primary" @click="updateShelf">确认</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
   <el-container>
-    <el-table :data="AdminData" height="600" style="width: 100%" sortable>
-      <el-table-column align="center" sortable label="管理员编号" width="200" prop="ano">
+    <el-table :data="ShelfData" height="600" style="width: 100%" sortable>
+      <el-table-column align="center" sortable label="图书编号" width="200" prop="shelfno">
       </el-table-column>
-      <el-table-column align="center" label="名字" width="200" prop="aname"></el-table-column>
-      <el-table-column align="center" label="邮箱" width="200" prop="aemail"> </el-table-column>
+
+      <el-table-column align="center" label="类型" width="200" prop="shelftype"> </el-table-column>
 
       <el-table-column align="center" label="操作">
         <template #default="scope">
