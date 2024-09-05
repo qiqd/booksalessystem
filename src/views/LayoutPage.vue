@@ -140,7 +140,7 @@ const changeColor = (num) => {
                 >图书分类列表</el-menu-item
               ></router-link
             >
-            <router-link to="/shelf">
+            <router-link to="/TypeIncrease">
               <el-menu-item
                 class="item"
                 index="2-1-2"
@@ -165,7 +165,7 @@ const changeColor = (num) => {
                 >图书列表</el-menu-item
               ></router-link
             >
-            <router-link to="/books">
+            <router-link to="/BookIncrease">
               <el-menu-item
                 class="item"
                 index="3-1-2"

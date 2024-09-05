@@ -74,7 +74,15 @@ const router = createRouter({
           name: 'VipIncrease',
           component: () => import("@/views/VipIncrease.vue")
         },
-
+        {
+          path: '/TypeIncrease',
+          name: 'TypeIncrease',
+          component: () => import("@/views/BookTypeIncrease.vue")
+        }, {
+          path: '/BookIncrease',
+          name: 'BookIncrease',
+          component: () => import("@/views/BookIncrease.vue")
+        },
 
       ]
     },

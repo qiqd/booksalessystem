@@ -20,6 +20,25 @@ export const updateBookByBno = (bno) => {
 
   })
 }
+
+export const addBook = (from) => {
+  return request.post(`/book/add`, {
+
+    "btitle": from.btitle,
+    "isbn": from.isbn,
+    "bauthor": from.bauthor,
+    "bpublisher": from.bpublisher,
+    "bdate": from.bdate,
+    "bprice": from.bprice,
+    "btype": from.btype,
+    "shelfno": from.shelfno,
+    "bnumber": from.bnumber,
+
+  })
+}
+
+
+
 export const getAllShelf = (shelftype) => {
   if (shelftype==="") {
     return request.get("/shelf", {
@@ -36,4 +55,9 @@ export const updateShelfByShelfno = (shelfno,from) => {
 export const deleteShelfByShelfno = (shelfno) => {
   return request.delete(`/shelf/?shelfno=${shelfno}`,)
 
+}
+export const addShelf = (from) => {
+  return request.post(`/shelf/add`, {
+    "shelftype": from.shelftype,
+  })
 }
