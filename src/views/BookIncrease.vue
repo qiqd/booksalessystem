@@ -45,15 +45,10 @@ const handleChange =async (type) => {
   const selectedShelf =ShelfData.value.find(item => item.shelftype === type);
   console.log(selectedShelf)
   if (selectedShelf) {
-    BookFrom.shelfno = selectedShelf.shelfno;
-    console.log( BookFrom.shelfno )
-    console.log(BookFrom.value)
+    BookFrom.value.shelfno = selectedShelf.shelfno;
   } else {
     BookFrom.shelfno = null;
   }
-  console.log(selectedShelf.shelfno)
-
-
 }
 onMounted(() => {
   getShelfData()
@@ -76,7 +71,13 @@ onMounted(() => {
         <el-input v-model="BookFrom.bpublisher" placeholder="请输入出版社" clearable />
       </el-form-item>
        <el-form-item label="日期">
-        <el-input v-model="BookFrom.bdate" placeholder="请输入日期" clearable />
+
+           <el-date-picker
+             v-model="BookFrom.bdate"
+             type="date"
+             placeholder="选择日期">
+           </el-date-picker>
+
       </el-form-item>
        <el-form-item label="价格">
         <el-input v-model="BookFrom.bprice" placeholder="请输入价格" clearable />
