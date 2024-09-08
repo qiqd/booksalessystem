@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getAllAdminer, updateAdminPasswordByAno } from '@/api/admin'
-
+import { useCounterStore } from '@/stores/counter.js'
 import { ElMessage } from 'element-plus'
-
+const store = useCounterStore()
 const AdminData = ref([])
 
 const updateAdminNo = ref()
@@ -18,6 +18,7 @@ const getAdminData = async () => {
   AdminData.value = (await getAllAdminer()).data.data
   console.log(AdminData.value)
   AdminFrom.value = AdminData.value[0]
+  AdminFrom.value.aname = store.adminInfo.username
   console.log(AdminFrom.value)
 }
 

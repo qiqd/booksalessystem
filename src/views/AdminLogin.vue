@@ -48,6 +48,7 @@ const OnSubmit = async () => {
     plain: true
   })
   store.token = res.data.data
+  store.adminInfo = form.value
   router.push('/layout')
 }
 const reset = () => {
