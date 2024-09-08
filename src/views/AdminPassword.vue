@@ -11,8 +11,7 @@ const AdminFrom = ref({
   ano: '',
   aname: '',
   password: '',
-  newpassword: '',
-
+  newpassword: ''
 })
 
 const getAdminData = async () => {
@@ -23,26 +22,26 @@ const getAdminData = async () => {
 }
 
 const updateAdmin = () => {
-  updateAdminNo.value= AdminFrom.value.ano
+  updateAdminNo.value = AdminFrom.value.ano
   console.log(AdminFrom.value.password)
   console.log(AdminFrom.value.newpassword)
-  if (AdminFrom.value.password === ''|| (AdminFrom.value.newpassword === ''&& AdminFrom.value.password === '')||AdminFrom.value.newpassword === '') {
+  if (
+    AdminFrom.value.password === '' ||
+    (AdminFrom.value.newpassword === '' && AdminFrom.value.password === '') ||
+    AdminFrom.value.newpassword === ''
+  ) {
     ElMessage({
       message: '请输入密码',
       type: 'error',
       plain: true
     })
-
-  }
- else if (AdminFrom.value.password !== AdminFrom.value.newpassword) {
+  } else if (AdminFrom.value.password !== AdminFrom.value.newpassword) {
     ElMessage({
       message: '两次密码不一致',
       type: 'error',
       plain: true
     })
-
-  }
-  else{
+  } else {
     updateAdminPasswordByAno(updateAdminNo.value, AdminFrom.value).then((res) => {
       if (res.data.state > 300) {
         ElMessage({
@@ -60,7 +59,6 @@ const updateAdmin = () => {
       getAdminData()
     })
   }
-
 }
 
 onMounted(() => {
@@ -69,11 +67,10 @@ onMounted(() => {
 </script>
 
 <template>
-
-  <el-container  width="500">
-    <el-form :model="AdminFrom" label-position="right" label-width="auto" >
+  <el-container width="500">
+    <el-form :model="AdminFrom" label-position="right" label-width="auto">
       <el-form-item label="名字">
-        <el-input v-model="AdminFrom.aname"  disabled clearable />
+        <el-input v-model="AdminFrom.aname" disabled clearable />
       </el-form-item>
 
       <el-form-item label="新密码">
@@ -87,10 +84,7 @@ onMounted(() => {
         <el-button type="primary" @click="updateAdmin">确认修改</el-button>
       </el-form-item>
     </el-form>
-    </el-container>
-
+  </el-container>
 </template>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>
