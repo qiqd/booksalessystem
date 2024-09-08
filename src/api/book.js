@@ -16,7 +16,7 @@ export const updateBookByBno = (bno,from) => {
     "bauthor": from.bauthor,
     "bpublisher": from.bpublisher,
     "btype": from.btype,
-    "shelfno": from.btype,
+    "shelfno": from.shelfno,
     "bprice": from.bprice,
 
   })

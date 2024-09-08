@@ -23,6 +23,7 @@ const BookFrom = ref({
   btype: '',
   bprice: '',
   shelfno: '',
+  bdate:'',
 })
 
 const getBookData = async () => {
@@ -68,6 +69,7 @@ const ss = async() => {
 }
 const updateBook = () => {
   console.log(updateBookNo.value)
+  console.log(BookFrom.value)
   updateBookByBno(updateBookNo.value, BookFrom.value).then((res) => {
     if (res.data.state > 300) {
       ElMessage({
@@ -102,6 +104,7 @@ const handleEdit = (index, row) => {
   BookFrom.value.isbn = row.isbn
   BookFrom.value.bauthor = row.bauthor
   BookFrom.value.bpublisher = row.bpublisher
+  BookFrom.value.bdate = row.bdate
   BookFrom.value.btype = row.btype
   BookFrom.value.bprice = row.bprice
 
@@ -155,6 +158,13 @@ onMounted(() => {
       <el-form-item label="出版社">
         <el-input v-model="BookFrom.bpublisher" placeholder="请输入出版社" clearable />
       </el-form-item>
+      <el-form-item label="日期">
+        <el-date-picker
+          v-model="BookFrom.bdate"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="BookFrom.btype" placeholder="请选择图书类型"  @change="handleChange">
           <el-option
@@ -172,24 +182,24 @@ onMounted(() => {
         <el-input v-model="BookFrom.bprice" placeholder="请输入价格（元）" clearable />
       </el-form-item>
 
-
-
       <el-form-item>
-        <el-button type="primary" @click="updateBook">确认</el-button>
+        <el-button type="primary" @click="updateBook">确认修改</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
   <el-container>
     <el-table :data="BookData" height="600" style="width: 100%" sortable>
-      <el-table-column align="center" sortable label="图书编号" width="200" prop="bno">
+      <el-table-column align="center" sortable label="图书编号" width="100" prop="bno">
       </el-table-column>
-      <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
-      <el-table-column align="center" label="ISBN" width="200" prop="isbn"> </el-table-column>
-      <el-table-column align="center" label="作者" width="200" prop="bauthor"> </el-table-column>
+      <el-table-column align="center" label="书名" width="160" prop="btitle"></el-table-column>
+      <el-table-column align="center" label="ISBN" width="160" prop="isbn"> </el-table-column>
+      <el-table-column align="center" label="作者" width="160" prop="bauthor"> </el-table-column>
 
-      <el-table-column align="center" label="出版社" width="200" prop="bpublisher"> </el-table-column>
-      <el-table-column align="center" label="类型" width="200" prop="btype"> </el-table-column>
-      <el-table-column align="center" sortable label="价格（元）/本" width="200" prop="bprice"> </el-table-column>
+      <el-table-column align="center" label="出版社" width="160" prop="bpublisher"> </el-table-column>
+      <el-table-column align="center" label="日期" width="160" prop="bdate"> </el-table-column>
+      <el-table-column align="center" label="类型" width="160" prop="btype"> </el-table-column>
+      <el-table-column align="center" sortable label="价格（元）/本" width="160" prop="bprice"> </el-table-column>
+      <el-table-column align="center" sortable label="库存（本）" width="160" prop="bnumber"> </el-table-column>
 
       <el-table-column align="center" label="操作">
         <template #default="scope">
