@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getAllBook, updateBookByBno } from '@/api/book'
-import { updateVipBySno } from '@/api/vip.js'
+import { getAllBook, updateBookByBno ,getAllShelf} from '@/api/book'
+
 
 const BookData = ref([])
-
+const ShelfData = ref([])
 
 const dialogVisible = ref(false)
 const updateVisible = ref(false)
@@ -22,11 +22,13 @@ const BookFrom = ref({
   bpublisher: '',
   btype: '',
   bprice: '',
+  shelfno: '',
 })
 
 const getBookData = async () => {
  let bname=""
   BookData.value = (await getAllBook(bname)).data.data
+  ShelfData.value = (await getAllShelf('')).data.data
   console.log(BookData.value)
   console.log("BookFrom.bname:"+BookFrom.value.bname)
 
@@ -65,6 +67,7 @@ const ss = async() => {
 
 }
 const updateBook = () => {
+  console.log(updateBookNo.value)
   updateBookByBno(updateBookNo.value, BookFrom.value).then((res) => {
     if (res.data.state > 300) {
       ElMessage({
@@ -82,6 +85,16 @@ const updateBook = () => {
     updateVisible.value = false
     getBookData()
   })
+}
+const handleChange =async (type) => {
+
+  const selectedShelf =ShelfData.value.find(item => item.shelftype === type);
+  console.log(selectedShelf)
+  if (selectedShelf) {
+    BookFrom.value.shelfno = selectedShelf.shelfno;
+  } else {
+    BookFrom.shelfno = null;
+  }
 }
 const handleEdit = (index, row) => {
   updateBookNo.value = row.bno
@@ -130,22 +143,35 @@ onMounted(() => {
   <!-- 修改员工信息弹框 -->
   <el-dialog v-model="updateVisible" title="修改书籍信息" width="500">
     <el-form :model="BookFrom" label-position="right" label-width="auto">
-      <el-form-item label="名称">
-        <el-input v-model="BookFrom.vname" placeholder="请输入vip顾客名字" clearable />
+      <el-form-item label="书名">
+        <el-input v-model="BookFrom.btitle" placeholder="请输入书名" clearable />
       </el-form-item>
-      <el-form-item label="手机号">
-        <el-input v-model="BookFrom.vphone" placeholder="请输入vip顾客手机号" clearable />
+      <el-form-item label="ISBN">
+        <el-input v-model="BookFrom.isbn" placeholder="请输入ISBN" clearable />
       </el-form-item>
-      <el-form-item label="电子邮件">
-        <el-input v-model="BookFrom.vemail" placeholder="请输入vip顾客邮件号" clearable />
+      <el-form-item label="作者">
+        <el-input v-model="BookFrom.bauthor" placeholder="请输入作者" clearable />
       </el-form-item>
-      <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
-      <el-table-column align="center" label="ISBN" width="200" prop="isbn"> </el-table-column>
-      <el-table-column align="center" label="作者" width="200" prop="bauthor"> </el-table-column>
+      <el-form-item label="出版社">
+        <el-input v-model="BookFrom.bpublisher" placeholder="请输入出版社" clearable />
+      </el-form-item>
+      <el-form-item label="类型">
+        <el-select v-model="BookFrom.btype" placeholder="请选择图书类型"  @change="handleChange">
+          <el-option
+            v-for="item in ShelfData"
+            :key="item.shelfno"
+            :label="item.shelftype"
+            :value="item.shelftype">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="书架编号">
+        <el-input v-model="BookFrom.shelfno"  disabled />
+      </el-form-item>
+      <el-form-item label="价格（元）/本">
+        <el-input v-model="BookFrom.bprice" placeholder="请输入价格（元）" clearable />
+      </el-form-item>
 
-      <el-table-column align="center" label="出版社" width="200" prop="bpublisher"> </el-table-column>
-      <el-table-column align="center" label="类型" width="200" prop="btype"> </el-table-column>
-      <el-table-column align="center" sortable label="价格（元）/本" width="200" prop="bprice"> </el-table-column>
 
 
       <el-form-item>

@@ -8,13 +8,14 @@ export const getAllBook = (bname) => {
   }
 }
 
-export const updateBookByBno = (bno) => {
+export const updateBookByBno = (bno,from) => {
   return request.post(`/book/${bno}`, {
 
     "btitle": from.btitle,
     "isbn": from.isbn,
     "bauthor": from.bauthor,
     "bpublisher": from.bpublisher,
+    "btype": from.btype,
     "shelfno": from.btype,
     "bprice": from.bprice,
 
