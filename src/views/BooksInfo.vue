@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getAllBook, updateBookByBno ,getAllShelf} from '@/api/book'
+import { getAllBook, updateBookByBno, getAllShelf, deleteBookBySno } from '@/api/book'
 
 
 const BookData = ref([])
@@ -36,7 +36,7 @@ const getBookData = async () => {
 }
 
 const confirmDelete = () => {
-  console.log(deleteBookNo.value)
+  console.log("deleteBookNo.value"+deleteBookNo.value)
 
   deleteBookBySno(deleteBookNo.value).then((res) => {
     if (res.data.state > 300) {
@@ -95,7 +95,7 @@ const handleChange =async (type) => {
   if (selectedShelf) {
     BookFrom.value.shelfno = selectedShelf.shelfno;
   } else {
-    BookFrom.shelfno = null;
+    BookFrom.value.shelfno = null;
   }
 }
 const handleEdit = (index, row) => {
@@ -112,7 +112,7 @@ const handleEdit = (index, row) => {
 }
 const handleDelete = (index, row) => {
   dialogVisible.value = true
-  deleteBookNo.value = row.ono
+  deleteBookNo.value = row.bno
 }
 onMounted(() => {
   getBookData()
@@ -189,9 +189,9 @@ onMounted(() => {
   </el-dialog>
   <el-container>
     <el-table :data="BookData" height="600" style="width: 100%" sortable>
-      <el-table-column align="center" sortable label="图书编号" width="100" prop="bno">
+      <el-table-column align="center" sortable label="图书编号" width="=50" prop="bno">
       </el-table-column>
-      <el-table-column align="center" label="书名" width="160" prop="btitle"></el-table-column>
+      <el-table-column align="center" label="书名" width="100" prop="btitle"></el-table-column>
       <el-table-column align="center" label="ISBN" width="160" prop="isbn"> </el-table-column>
       <el-table-column align="center" label="作者" width="160" prop="bauthor"> </el-table-column>
 

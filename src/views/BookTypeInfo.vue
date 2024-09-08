@@ -14,6 +14,7 @@ const updateShelfNo = ref()
 
 const ShelfFrom = ref({
   shelftype: '',
+  type: '',
 
 })
 
@@ -45,12 +46,12 @@ const confirmDelete = () => {
   })
 }
 const ss = async() => {
-  const shelftype = ShelfFrom.value.shelftype;
+  const type = ShelfFrom.value.type;
   try {
-    ShelfData.value = (await getAllShelf(shelftype)).data.data // 更新书籍数据
+    ShelfData.value = (await getAllShelf(type)).data.data // 更新书籍数据
     console.log(ShelfData.value );
   } catch (error) {
-    console.error('Error fetching book data:', error);
+    console.error('Error  book :', error);
   }
 
 }
@@ -102,7 +103,7 @@ onMounted(() => {
   <el-container >
     <el-form  label-position="right" label-width="auto">
       <el-form-item label="搜索：">
-        <el-input v-model="ShelfFrom.shelftype"  style="width: 500px" placeholder="shelftype" clearable/>
+        <el-input v-model="ShelfFrom.type"  style="width: 500px" placeholder=类型 clearable/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="ss">搜索</el-button>

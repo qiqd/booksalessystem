@@ -84,19 +84,7 @@ onMounted(() => {
     </template>
   </el-dialog>
 
-  <el-container >
-    <el-form  label-position="right" label-width="auto">
-      <el-form-item label="搜索：">
-        <el-input v-model="AdminFrom.aname"  style="width: 500px" placeholder="请输入书名" clearable/>
-      </el-form-item>
-      <el-form-item>
-<!--        <el-button type="primary" @click="ss">搜索</el-button>-->
-      </el-form-item>
-    </el-form>
 
-
-  </el-container>
-  <!-- 修改员工信息弹框 -->
   <el-dialog v-model="updateVisible" title="修改vip顾客信息" width="500">
     <el-form :model="AdminFrom" label-position="right" label-width="auto">
       <el-form-item label="名称">

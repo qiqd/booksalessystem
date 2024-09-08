@@ -18,7 +18,7 @@ export const updateBookByBno = (bno,from) => {
     "btype": from.btype,
     "shelfno": from.shelfno,
     "bprice": from.bprice,
-
+    "bdate": from.bdate,
   })
 }
 
@@ -38,7 +38,10 @@ export const addBook = (from) => {
   })
 }
 
+export const deleteBookBySno = (bno) => {
+  return request.delete(`/book/?bno=${bno}`,)
 
+}
 
 export const getAllShelf = (shelftype) => {
   if (shelftype==="") {

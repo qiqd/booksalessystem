@@ -1,34 +1,33 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { getAllAdminer, updateAdminPasswordByAno } from '@/api/admin'
+import {useRouter} from 'vue-router'
+import { getAnoByAccount, updateAdminPasswordByAno } from '@/api/admin'
 import { useCounterStore } from '@/stores/counter.js'
 import { ElMessage } from 'element-plus'
-const store = useCounterStore()
-const AdminData = ref([])
 
-const updateAdminNo = ref()
+const store = useCounterStore()
+
+const router = useRouter()
 const AdminFrom = ref({
   ano: '',
-  aname: '',
+  username: '',
   password: '',
-  newpassword: ''
+  newpassword: '',
+  newnewpassword: ''
 })
 
 const getAdminData = async () => {
-  AdminData.value = (await getAllAdminer()).data.data
-  console.log(AdminData.value)
-  AdminFrom.value = AdminData.value[0]
-  AdminFrom.value.aname = store.adminInfo.username
+
+  AdminFrom.value = store.adminInfo
+  AdminFrom.value.ano=(await getAnoByAccount(AdminFrom.value.username,AdminFrom.value.password)).data.data
   console.log(AdminFrom.value)
 }
 
 const updateAdmin = () => {
-  updateAdminNo.value = AdminFrom.value.ano
-  console.log(AdminFrom.value.password)
-  console.log(AdminFrom.value.newpassword)
+
   if (
-    AdminFrom.value.password === '' ||
-    (AdminFrom.value.newpassword === '' && AdminFrom.value.password === '') ||
+    AdminFrom.value.newpassword === '' ||
+    (AdminFrom.value.newpassword === '' && AdminFrom.value.newnewpassword === '') ||
     AdminFrom.value.newpassword === ''
   ) {
     ElMessage({
@@ -36,14 +35,14 @@ const updateAdmin = () => {
       type: 'error',
       plain: true
     })
-  } else if (AdminFrom.value.password !== AdminFrom.value.newpassword) {
+  } else if (AdminFrom.value.newnewpassword !== AdminFrom.value.newpassword) {
     ElMessage({
       message: '两次密码不一致',
       type: 'error',
       plain: true
     })
   } else {
-    updateAdminPasswordByAno(updateAdminNo.value, AdminFrom.value).then((res) => {
+    updateAdminPasswordByAno(AdminFrom.value.ano, AdminFrom.value).then((res) => {
       if (res.data.state > 300) {
         ElMessage({
           message: '修改失败',
@@ -56,8 +55,11 @@ const updateAdmin = () => {
         message: '修改成功',
         type: 'success',
         plain: true
+
       })
+      router.push('/')
       getAdminData()
+
     })
   }
 }
@@ -71,14 +73,14 @@ onMounted(() => {
   <el-container width="500">
     <el-form :model="AdminFrom" label-position="right" label-width="auto">
       <el-form-item label="名字">
-        <el-input v-model="AdminFrom.aname" disabled clearable />
+        <el-input v-model="AdminFrom.username" disabled clearable />
       </el-form-item>
 
       <el-form-item label="新密码">
-        <el-input v-model="AdminFrom.password" placeholder="请输入新密码" clearable />
+        <el-input v-model="AdminFrom.newpassword" placeholder="请输入新密码" clearable />
       </el-form-item>
       <el-form-item label="再次输入密码">
-        <el-input v-model="AdminFrom.newpassword" placeholder="请再输入新密码" clearable />
+        <el-input v-model="AdminFrom.newnewpassword" placeholder="请再输入新密码" clearable />
       </el-form-item>
 
       <el-form-item>
