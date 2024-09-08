@@ -45,6 +45,11 @@ const router = createRouter({
           component: () => import("@/views/AdminInfo.vue")
         },
         {
+          path: '/password',
+          name: 'password',
+          component: () => import("@/views/AdminPassword.vue")
+        },
+        {
           path: '/orders',
           name: 'orders',
           component: () => import("@/views/Orders.vue")

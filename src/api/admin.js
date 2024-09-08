@@ -21,3 +21,8 @@ export const updateAdminByAno = (ano,from) => {
 
     })
 }
+export const updateAdminPasswordByAno = (ano,from) => {
+    return request.post(`/admin/${ano}`, {
+        "apassword": from.password,
+    })
+}

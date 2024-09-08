@@ -1,15 +1,18 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getAllBook } from '@/api/book'
+import { getAllBook, updateBookByBno } from '@/api/book'
+import { updateVipBySno } from '@/api/vip.js'
 
 const BookData = ref([])
 
 
 const dialogVisible = ref(false)
+const updateVisible = ref(false)
 
 
 const deleteBookNo = ref()
+const updateBookNo = ref()
 
 const BookFrom = ref({
   bname: '',
@@ -20,7 +23,7 @@ const BookFrom = ref({
   btype: '',
   bprice: '',
 })
-// const bname = ""
+
 const getBookData = async () => {
  let bname=""
   BookData.value = (await getAllBook(bname)).data.data
@@ -61,7 +64,36 @@ const ss = async() => {
   }
 
 }
+const updateBook = () => {
+  updateBookByBno(updateBookNo.value, BookFrom.value).then((res) => {
+    if (res.data.state > 300) {
+      ElMessage({
+        message: '修改失败',
+        type: 'error',
+        plain: true
+      })
+      return
+    }
+    ElMessage({
+      message: '修改成功',
+      type: 'success',
+      plain: true
+    })
+    updateVisible.value = false
+    getBookData()
+  })
+}
+const handleEdit = (index, row) => {
+  updateBookNo.value = row.bno
+  BookFrom.value.btitle = row.btitle
+  BookFrom.value.isbn = row.isbn
+  BookFrom.value.bauthor = row.bauthor
+  BookFrom.value.bpublisher = row.bpublisher
+  BookFrom.value.btype = row.btype
+  BookFrom.value.bprice = row.bprice
 
+  updateVisible.value = true
+}
 const handleDelete = (index, row) => {
   dialogVisible.value = true
   deleteBookNo.value = row.ono
@@ -95,7 +127,32 @@ onMounted(() => {
 
 
   </el-container>
+  <!-- 修改员工信息弹框 -->
+  <el-dialog v-model="updateVisible" title="修改书籍信息" width="500">
+    <el-form :model="BookFrom" label-position="right" label-width="auto">
+      <el-form-item label="名称">
+        <el-input v-model="BookFrom.vname" placeholder="请输入vip顾客名字" clearable />
+      </el-form-item>
+      <el-form-item label="手机号">
+        <el-input v-model="BookFrom.vphone" placeholder="请输入vip顾客手机号" clearable />
+      </el-form-item>
+      <el-form-item label="电子邮件">
+        <el-input v-model="BookFrom.vemail" placeholder="请输入vip顾客邮件号" clearable />
+      </el-form-item>
+      <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
+      <el-table-column align="center" label="ISBN" width="200" prop="isbn"> </el-table-column>
+      <el-table-column align="center" label="作者" width="200" prop="bauthor"> </el-table-column>
 
+      <el-table-column align="center" label="出版社" width="200" prop="bpublisher"> </el-table-column>
+      <el-table-column align="center" label="类型" width="200" prop="btype"> </el-table-column>
+      <el-table-column align="center" sortable label="价格（元）/本" width="200" prop="bprice"> </el-table-column>
+
+
+      <el-form-item>
+        <el-button type="primary" @click="updateBook">确认</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
   <el-container>
     <el-table :data="BookData" height="600" style="width: 100%" sortable>
       <el-table-column align="center" sortable label="图书编号" width="200" prop="bno">
@@ -110,7 +167,7 @@ onMounted(() => {
 
       <el-table-column align="center" label="操作">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit2(scope.$index,scope.row)"> 编辑</el-button>
+          <el-button size="small" @click="handleEdit(scope.$index,scope.row)"> 编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
             删除
           </el-button>

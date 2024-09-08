@@ -197,7 +197,7 @@ const changeColor = (num) => {
               <h3>个人信息</h3>
             </template>
 
-            <router-link to="/staff">
+            <router-link to="/password">
               <el-menu-item
                 class="item"
                 index="5-1-1"
