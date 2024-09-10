@@ -23,7 +23,7 @@ const changeColor = (num) => {
         <div class="user1">
           <img src="../../public/images/use.svg" alt="" class="user2" />
           <div class="info">
-            <span>admin</span>
+            <span>{{ store.adminInfo.username }}</span>
             <span @click="loginout">退出登录</span>
           </div>
         </div>
@@ -46,7 +46,7 @@ const changeColor = (num) => {
             <template #title>
               <h3>用户管理</h3>
             </template>
-            <el-sub-menu index="1-1">
+            <el-sub-menu v-if="store.adminInfo.type == 'admin'" index="1-1">
               <template #title>
                 <h3>管理员</h3>
               </template>
