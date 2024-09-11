@@ -124,7 +124,7 @@ onMounted(() => {
     </el-form>
   </el-dialog>
   <el-container>
-    <el-table :data="ShelfData" height="600" style="width: 100%" sortable>
+    <el-table :data="ShelfData" height="700" style="width: 100%" sortable>
       <el-table-column align="center" sortable label="图书编号" width="200" prop="shelfno">
       </el-table-column>
 

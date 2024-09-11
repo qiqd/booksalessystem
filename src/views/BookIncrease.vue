@@ -56,7 +56,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-container >
+  <el-container class="container">
     <el-form :model="BookFrom" label-position="right" label-width="auto">
       <el-form-item label="书名">
         <el-input v-model="BookFrom.btitle" placeholder="请输入书名" clearable />
@@ -108,5 +108,16 @@ onMounted(() => {
 </template>
 
 <style lang="less" scoped>
+.container {
+  width: 300px;
+  height: 500px;
+  border: 1px #00ffff solid;
+  margin: 0 auto;
+  margin-top: 100px;
 
+}
+button{
+  position: absolute;
+  right: 0;
+}
 </style>

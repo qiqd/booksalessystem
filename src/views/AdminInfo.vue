@@ -101,8 +101,8 @@ onMounted(() => {
       </el-form-item>
     </el-form>
   </el-dialog>
-  <el-container>
-    <el-table :data="AdminData" height="600" style="width: 100%" sortable>
+  <el-container >
+    <el-table :data="AdminData" height="100%" style="width: 100%" sortable>
       <el-table-column align="center" sortable label="管理员编号" width="200" prop="ano">
       </el-table-column>
       <el-table-column align="center" label="名字" width="200" prop="aname"></el-table-column>

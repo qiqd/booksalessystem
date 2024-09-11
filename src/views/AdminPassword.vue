@@ -70,7 +70,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-container width="500">
+  <el-container width="500" class="container">
     <el-form :model="AdminFrom" label-position="right" label-width="auto">
       <el-form-item label="名字">
         <el-input v-model="AdminFrom.username" disabled clearable />
@@ -90,4 +90,17 @@ onMounted(() => {
   </el-container>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.container {
+  width: 300px;
+  height: 200px;
+  border: 1px #00ffff solid;
+  margin: 0 auto;
+  margin-top: 100px;
+
+}
+button{
+  position: absolute;
+  right: 0;
+}
+</style>

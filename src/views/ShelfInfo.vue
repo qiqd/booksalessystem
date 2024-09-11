@@ -91,7 +91,7 @@ onMounted(() => {
   </el-container>
 
   <el-container>
-    <el-table :data="BookData" height="600" style="width: 100%" sortable>
+    <el-table :data="BookData" height="850"  style="width: 100%" sortable>
       <el-table-column align="center" sortable label="图书编号" width="200" prop="bno">
       </el-table-column>
       <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>

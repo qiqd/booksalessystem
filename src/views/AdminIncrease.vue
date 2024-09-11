@@ -42,7 +42,7 @@ const insertAdmin = () => {
 </script>
 
 <template>
-  <el-container>
+  <el-container class="container">
     <el-form :model="AdminFrom" label-position="right" label-width="auto">
       <el-form-item label="名称">
         <el-input v-model="AdminFrom.aname" placeholder="请输入管理员名字" clearable />
@@ -60,4 +60,17 @@ const insertAdmin = () => {
   </el-container>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .container {
+    width: 260px;
+    height: 180px;
+    border: 1px #00ffff solid;
+    margin: 0 auto;
+    margin-top: 100px;
+
+  }
+  button{
+   position: absolute;
+    right: 0;
+  }
+</style>

@@ -32,7 +32,7 @@ const insertVip = () => {
 </script>
 
 <template>
-  <el-container >
+  <el-container class="container">
     <el-form :model="VipFrom" label-position="right" label-width="auto">
       <el-form-item label="名称">
         <el-input v-model="VipFrom.vname" placeholder="请输入vip顾客名字" clearable />
@@ -57,5 +57,16 @@ const insertVip = () => {
 </template>
 
 <style lang="less" scoped>
+.container {
+  width: 260px;
+  height: 220px;
+  border: 1px #00ffff solid;
+  margin: 0 auto;
+  margin-top: 100px;
 
+}
+button{
+  position: absolute;
+  right: 0;
+}
 </style>
