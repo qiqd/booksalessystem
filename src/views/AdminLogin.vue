@@ -9,8 +9,8 @@ const store = useCounterStore()
 const router = useRouter()
 const form = ref({
   username: '',
-  password: ''
-  //   type: ''
+  password: '',
+  type: ''
 })
 const options = ref([
   {
@@ -64,10 +64,16 @@ const reset = () => {
       <h3>图书销售管理系统登录</h3>
       <el-form :model="form" label-width="80px" size="large" label-position="left" :rules="rules">
         <el-form-item label-width="auto" prop="username">
-          <el-input v-model="form.username" placeholder="请输入账号"></el-input>
+          <el-input v-model="form.username" placeholder="请输入账号" clearable></el-input>
         </el-form-item>
         <el-form-item label-width="auto" prop="password">
-          <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+          <el-input
+            v-model="form.password"
+            type="password"
+            placeholder="请输入密码"
+            clearable
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item style="margin-left: -80px" prop="type">
           <el-select v-model="form.type" value-key="2" placeholder="选择登录身份">
