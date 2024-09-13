@@ -14,8 +14,7 @@ const BookFrom = ref({
   bprice: '',
   btype: '',
   shelfno: '',
-  bnumber: '',
-
+  bnumber: ''
 })
 const getShelfData = async () => {
   ShelfData.value = (await getAllShelf('')).data.data
@@ -23,7 +22,7 @@ const getShelfData = async () => {
 }
 
 const insertBook = () => {
-  addBook( BookFrom.value).then((res) => {
+  addBook(BookFrom.value).then((res) => {
     if (res.data.state > 300) {
       ElMessage({
         message: '添加失败',
@@ -37,17 +36,15 @@ const insertBook = () => {
       type: 'success',
       plain: true
     })
-
   })
 }
-const handleChange =async (type) => {
-
-  const selectedShelf =ShelfData.value.find(item => item.shelftype === type);
+const handleChange = async (type) => {
+  const selectedShelf = ShelfData.value.find((item) => item.shelftype === type)
   console.log(selectedShelf)
   if (selectedShelf) {
-    BookFrom.value.shelfno = selectedShelf.shelfno;
+    BookFrom.value.shelfno = selectedShelf.shelfno
   } else {
-    BookFrom.shelfno = null;
+    BookFrom.value.shelfno = null
   }
 }
 onMounted(() => {
@@ -70,31 +67,26 @@ onMounted(() => {
       <el-form-item label="出版社">
         <el-input v-model="BookFrom.bpublisher" placeholder="请输入出版社" clearable />
       </el-form-item>
-       <el-form-item label="日期">
-
-           <el-date-picker
-             v-model="BookFrom.bdate"
-             type="date"
-             placeholder="选择日期">
-           </el-date-picker>
-
+      <el-form-item label="日期">
+        <el-date-picker v-model="BookFrom.bdate" type="date" placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
-       <el-form-item label="价格">
+      <el-form-item label="价格">
         <el-input v-model="BookFrom.bprice" placeholder="请输入价格" clearable />
       </el-form-item>
       <el-form-item label="书架类型">
-          <el-select v-model="BookFrom.btype" placeholder="请选择图书类型"  @change="handleChange">
-            <el-option
-              v-for="item in ShelfData"
-              :key="item.shelfno"
-              :label="item.shelftype"
-              :value="item.shelftype">
-            </el-option>
-          </el-select>
-
+        <el-select v-model="BookFrom.btype" placeholder="请选择图书类型" @change="handleChange">
+          <el-option
+            v-for="item in ShelfData"
+            :key="item.shelfno"
+            :label="item.shelftype"
+            :value="item.shelftype"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="书架编号">
-        <el-input v-model="BookFrom.shelfno"  disabled />
+        <el-input v-model="BookFrom.shelfno" disabled />
       </el-form-item>
       <el-form-item label="数量">
         <el-input v-model="BookFrom.bnumber" placeholder="请输入数量" clearable />
@@ -103,8 +95,7 @@ onMounted(() => {
         <el-button type="primary" @click="insertBook">确认添加</el-button>
       </el-form-item>
     </el-form>
-    </el-container>
-
+  </el-container>
 </template>
 
 <style lang="less" scoped>
@@ -114,9 +105,8 @@ onMounted(() => {
   border: 1px #00ffff solid;
   margin: 0 auto;
   margin-top: 100px;
-
 }
-button{
+button {
   position: absolute;
   right: 0;
 }
