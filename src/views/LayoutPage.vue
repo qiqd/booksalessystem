@@ -38,12 +38,14 @@ const changeColor = (num) => {
               @click="changeColor(0)"
               index="12"
               :class="{ active: defaltNum == 0 }"
-              ><h3>首页</h3></el-menu-item
+              ><el-icon><HomeFilled /></el-icon>
+              <h3>首页</h3></el-menu-item
             ></router-link
           >
           <!-- 用户管理导航栏 -->
           <el-sub-menu index="1">
             <template #title>
+              <el-icon><UserFilled /></el-icon>
               <h3>用户管理</h3>
             </template>
             <el-sub-menu v-if="store.adminInfo.type == 'admin'" index="1-1">
@@ -128,6 +130,7 @@ const changeColor = (num) => {
           <!-- 图书分类导航栏 -->
           <el-sub-menu index="2">
             <template #title>
+              <el-icon><Notebook /></el-icon>
               <h3>图书分类</h3>
             </template>
 
@@ -153,6 +156,7 @@ const changeColor = (num) => {
           <!-- 图书管理导航栏 -->
           <el-sub-menu index="3">
             <template #title>
+              <el-icon><Management /></el-icon>
               <h3>图书管理</h3>
             </template>
 
@@ -178,6 +182,7 @@ const changeColor = (num) => {
           <!-- 订单管理导航栏 -->
           <el-sub-menu index="4">
             <template #title>
+              <el-icon><DishDot /></el-icon>
               <h3>订单管理</h3>
             </template>
 
@@ -194,6 +199,7 @@ const changeColor = (num) => {
           <!-- 个人信息 -->
           <el-sub-menu index="5">
             <template #title>
+              <el-icon><InfoFilled /></el-icon>
               <h3>个人信息</h3>
             </template>
 
