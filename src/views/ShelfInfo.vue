@@ -1,13 +1,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getAllBook } from '@/api/book'
+import { getAllBook, deleteBookBySno } from '@/api/book'
 
 const BookData = ref([])
 
-
 const dialogVisible = ref(false)
-
 
 const deleteBookNo = ref()
 
@@ -16,11 +14,10 @@ const BookFrom = ref({
 })
 // const bname = ""
 const getBookData = async () => {
-  let bname=""
+  let bname = ''
   BookData.value = (await getAllBook(bname)).data.data
   console.log(BookData.value)
-  console.log("BookFrom.bname:"+BookFrom.value.bname)
-
+  console.log('BookFrom.bname:' + BookFrom.value.bname)
 }
 
 const confirmDelete = () => {
@@ -45,15 +42,14 @@ const confirmDelete = () => {
     getBookData()
   })
 }
-const ss = async() => {
-  const bname = BookFrom.value.bname;
+const ss = async () => {
+  const bname = BookFrom.value.bname
   try {
     BookData.value = (await getAllBook(bname)).data.data // 更新书籍数据
-    console.log(BookData.value );
+    console.log(BookData.value)
   } catch (error) {
-    console.error('Error fetching book data:', error);
+    console.error('Error fetching book data:', error)
   }
-
 }
 
 const handleDelete = (index, row) => {
@@ -77,31 +73,35 @@ onMounted(() => {
     </template>
   </el-dialog>
 
-  <el-container >
-    <el-form  label-position="right" label-width="auto">
+  <el-container>
+    <el-form label-position="right" label-width="auto">
       <el-form-item label="搜索：">
-        <el-input v-model="BookFrom.bname"  style="width: 500px" placeholder="请输入书名" clearable/>
+        <el-input
+          v-model="BookFrom.bname"
+          style="width: 500px"
+          placeholder="请输入书名"
+          clearable
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="ss">搜索</el-button>
       </el-form-item>
     </el-form>
-
-
   </el-container>
 
   <el-container>
-    <el-table :data="BookData" height="850"  style="width: 100%" sortable>
+    <el-table :data="BookData" height="850" style="width: 100%" sortable>
       <el-table-column align="center" sortable label="图书编号" width="200" prop="bno">
       </el-table-column>
       <el-table-column align="center" label="书名" width="200" prop="btitle"></el-table-column>
 
       <el-table-column align="center" label="类型" width="200" prop="btype"> </el-table-column>
-      <el-table-column align="center" sortable label="数量（本）" width="200" prop="bnumber"> </el-table-column>
+      <el-table-column align="center" sortable label="数量（本）" width="200" prop="bnumber">
+      </el-table-column>
 
       <el-table-column align="center" label="操作">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit2(scope.$index,scope.row)"> 编辑</el-button>
+          <el-button size="small" @click="handleEdit2(scope.$index, scope.row)"> 编辑</el-button>
           <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
             删除
           </el-button>
@@ -111,6 +111,4 @@ onMounted(() => {
   </el-container>
 </template>
 
-<style scoped lang="less">
-
-</style>
+<style scoped lang="less"></style>

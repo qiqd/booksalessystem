@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { deleteStaffBySno, updateStaffBySno, getAllStaff } from '@/api/staff'
+import { deleteStaffBySno, updateStaffBySno, getAllStaff, getStaffByParams } from '@/api/staff'
 const staffData = ref([])
 const dialogVisible = ref(false)
 const updateVisible = ref(false)
@@ -14,6 +14,27 @@ const staffFrom = ref({
   sphone: '',
   semail: ''
 })
+const searchName = ref('')
+const searchPhone = ref('')
+const searchBtn = async () => {
+  if (searchName.value == '' && searchPhone.value == '') {
+    // getVipData()
+    return
+  }
+  if (searchName.value != '') {
+    staffData.value = (await getStaffByParams(searchName.value)).data.data
+    return
+  }
+  if (searchPhone.value != '') {
+    staffData.value = (await getStaffByParams(searchPhone.value)).data.data
+    return
+  }
+}
+const searchReset = () => {
+  searchName.value = ''
+  searchPhone.value = ''
+  getStaffData()
+}
 const getStaffData = async () => {
   staffData.value = (await getAllStaff()).data.data
 }
@@ -113,27 +134,64 @@ onMounted(() => {
     </el-form>
   </el-dialog>
   <el-container>
-    <el-table :data="staffData" height="850" style="width: 100%">
-      <el-table-column align="center" sortable label="员工编号" width="180" prop="sno">
-      </el-table-column>
-      <el-table-column align="center" label="姓名" width="180" prop="sname"> </el-table-column>
-      <el-table-column align="center" label="性别" width="180" prop="sgender">
-        <template #default="scope">
-          <span v-if="scope.row.sgender == 1">男</span>
-          <span v-else>女</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="电子邮件" width="350" prop="semail"> </el-table-column>
-      <el-table-column align="center" label="操作">
-        <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> 编辑</el-button>
-          <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-header>
+      <div class="search">
+        <div class="byname">
+          <span>姓名</span>
+          <el-input v-model="searchName" style="width: 240px" placeholder="请输入姓名" />
+        </div>
+        <div class="byphone">
+          <span>邮箱</span>
+          <el-input v-model="searchPhone" style="width: 240px" placeholder="请输入电子邮箱" />
+          <el-button type="primary" size="default" @click="searchBtn">搜索</el-button>
+          <el-button type="warning" size="default" @click="searchReset">清空</el-button>
+        </div>
+      </div>
+    </el-header>
+    <div class="table">
+      <el-table :data="staffData" height="850" style="width: 100%">
+        <el-table-column align="center" sortable label="员工编号" width="180" prop="sno">
+        </el-table-column>
+        <el-table-column align="center" label="姓名" width="180" prop="sname"> </el-table-column>
+        <el-table-column align="center" label="性别" width="180" prop="sgender">
+          <template #default="scope">
+            <span v-if="scope.row.sgender == 1">男</span>
+            <span v-else>女</span>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="电话" width="180" prop="sphone"> </el-table-column>
+        <el-table-column align="center" label="电子邮件" width="350" prop="semail">
+        </el-table-column>
+        <el-table-column align="center" label="操作">
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> 编辑</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </el-container>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+:deep(.el-button--primary) {
+  margin-left: 10px;
+}
+.search {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  span {
+    margin-right: 5px;
+    line-height: 23px;
+    color: #96999f;
+    font-size: 15px;
+  }
+  .byname {
+    margin-right: 10px;
+  }
+}
+</style>

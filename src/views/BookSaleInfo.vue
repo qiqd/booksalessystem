@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import * as echarts from 'echarts'
 
 import { salesInfo, bookSalesInfo } from '@/api/saleInfo'
+import { getMonthSales } from '@/api/order'
 const salesDom = ref(null)
 const bookSales = ref(null)
 const date = ref([])

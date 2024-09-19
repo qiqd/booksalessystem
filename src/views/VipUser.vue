@@ -1,11 +1,29 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getAllVip, updateVipBySno, deleteVipBySno } from '@/api/vip'
+import { getAllVip, updateVipBySno, deleteVipBySno, getVipByParams } from '@/api/vip'
 const VipData = ref([])
 const dialogVisible = ref(false)
 const updateVisible = ref(false)
-
+const searchName = ref('')
+const searchPhone = ref('')
+const searchBtn = async () => {
+  if (searchName.value == '' && searchPhone.value == '') {
+    // getVipData()
+    return
+  }
+  if (searchName.value != '') {
+    VipData.value = [(await getVipByParams(searchName.value)).data.data]
+  }
+  if (searchPhone.value != '') {
+    VipData.value = [(await getVipByParams(searchPhone.value)).data.data]
+  }
+}
+const searchReset = () => {
+  searchName.value = ''
+  searchPhone.value = ''
+  getVipData()
+}
 const deleteVipNo = ref()
 const updateVipNo = ref()
 const VipFrom = ref({
@@ -112,36 +130,72 @@ onMounted(() => {
     </el-form>
   </el-dialog>
   <el-container>
-    <el-table :data="VipData" height="850"  style="width: 100%" sortable>
-      <el-table-column align="center" sortable label="编号" width="100" prop="vno">
-      </el-table-column>
-      <el-table-column align="center" label="姓名" width="80" prop="vname"> </el-table-column>
-      <el-table-column align="center" label="性别" width="80" prop="vgender">
-        <template #default="scope">
-          <span v-if="scope.row.vgender == 1">男</span>
-          <span v-else>女</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="电话" width="180" prop="vphone"> </el-table-column>
-      <el-table-column align="center" label="邮箱" width="220" prop="vemail"> </el-table-column>
-      <el-table-column align="center" label="vip创建时间" width="180" prop="vcreationtime">
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="vip过期时间"
-        width="180"
-        prop="vdeadline"
-      ></el-table-column>
-      <el-table-column align="center" label="操作">
-        <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> 编辑</el-button>
-          <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-header>
+      <div class="search">
+        <div class="byname">
+          <span>姓名</span>
+          <el-input v-model="searchName" style="width: 240px" placeholder="请输入姓名" />
+        </div>
+        <div class="byphone">
+          <span>电话</span>
+          <el-input v-model="searchPhone" style="width: 240px" placeholder="请输入电话" />
+          <el-button type="primary" size="default" @click="searchBtn">搜索</el-button>
+          <el-button type="warning" size="default" @click="searchReset">清空</el-button>
+        </div>
+      </div>
+    </el-header>
+
+    <div class="table">
+      <el-table :data="VipData" height="850" style="width: 100%" sortable>
+        <el-table-column align="center" sortable label="编号" width="100" prop="vno">
+        </el-table-column>
+        <el-table-column align="center" label="姓名" width="80" prop="vname"> </el-table-column>
+        <el-table-column align="center" label="性别" width="80" prop="vgender">
+          <template #default="scope">
+            <span v-if="scope.row.vgender == 1">男</span>
+            <span v-else>女</span>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="电话" width="180" prop="vphone"> </el-table-column>
+        <el-table-column align="center" label="邮箱" width="220" prop="vemail"> </el-table-column>
+        <el-table-column align="center" label="vip创建时间" width="180" prop="vcreationtime">
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="vip过期时间"
+          width="180"
+          prop="vdeadline"
+        ></el-table-column>
+        <el-table-column align="center" label="操作">
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> 编辑</el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
   </el-container>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+:deep(.el-button--primary) {
+  margin-left: 10px;
+}
+.search {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  span {
+    margin-right: 5px;
+    line-height: 23px;
+    color: #96999f;
+    font-size: 15px;
+  }
+  .byname {
+    margin-right: 10px;
+  }
+}
+</style>
