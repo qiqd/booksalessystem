@@ -38,11 +38,16 @@ echarts.use([
 ])
 import App from './App.vue'
 import router from './router'
-
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import ElementPlus from 'element-plus'
+import 'dayjs/locale/zh-cn'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+app.use(ElementPlus, {
+  locale: zhCn
+})
 app.use(router)
 app.use(createPinia().use(piniaPluginPersistedstate))
 app.mount('#app')

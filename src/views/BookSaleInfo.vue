@@ -14,6 +14,7 @@ const bookNum = ref([])
 const bookData = ref([])
 const salesOption = ref({})
 const bookSalesOption = ref({})
+const Month = ref('')
 const bookSaleData = () => {
   for (let i = 0; i < bookName.value.length; i++) {
     bookData.value.push({
@@ -122,7 +123,14 @@ const fetchData = async () => {
   bookSaleData()
   initChart()
 }
-
+const MonthChange = async () => {
+  const res = (await getMonthSales(Month.value)).data.data
+  const newBookName = res.map((item) => {
+    return { name: item.bookName, value: item.totalSales }
+  })
+  bookSalesOption.value.series[0].data = newBookName
+  echarts.getInstanceByDom(bookSales.value).setOption(bookSalesOption.value)
+}
 onMounted(() => {
   fetchData()
 })
@@ -130,6 +138,15 @@ onMounted(() => {
 
 <template>
   <el-container class="container">
+    <div class="block">
+      <el-date-picker
+        @change="MonthChange"
+        v-model="Month"
+        type="month"
+        value-format="YYYY-MM"
+        placeholder="选择月份"
+      />
+    </div>
     <div ref="salesDom" class="sales"></div>
     <div ref="bookSales" class="book-sales"></div>
   </el-container>
@@ -137,10 +154,18 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .container {
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 10px;
+  .block {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    z-index: 10;
+  }
 }
 .sales {
   width: 500px;
