@@ -21,20 +21,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  },
-
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          // 如果id中包含node_modules，则将其打包到vendor.js中
-          if (id.includes('node_modules')) {
-            return 'vendor'
-          }
-          // 更多条件可以添加在这里
-        }
-      }
-    },
-    chunkSizeWarningLimit: 3000 //设置打包后文件大小超过600k，则给出警告
   }
 })
