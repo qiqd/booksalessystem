@@ -1,0 +1,1 @@
+import{r as s}from"./request-CX3PgNwX.js";const t=a=>s.post("/admin/sign",{aname:a.aname,aemail:a.aemail,apassword:a.apassword}),d=()=>s.get("/admin",{}),o=(a,n)=>s.get(`/admin/getano?name=${a}&password=${n}`),r=(a,n)=>s.post(`/admin/${a}`,{aemail:n.aemail,aname:n.aname}),m=(a,n)=>s.post(`/admin/${a}`,{apassword:n.newpassword});export{o as a,m as b,t as c,d as g,r as u};

@@ -1,1 +1,0 @@
-import{r}from"./request-Cwi5WePM.js";const o=()=>r.get("/order",{}),s=e=>r.get(`/order/detail/${e}`,{}),n=e=>r.delete(`/order/${e}`),d=e=>r.get(`/order/month/${e}`);export{s as a,n as d,d as g,o as s};
