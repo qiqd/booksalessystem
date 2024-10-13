@@ -1,1 +1,0 @@
-import{r as e}from"./request-CX3PgNwX.js";const n=()=>e.get("/staffs",{}),f=s=>e.get(`/staffs/${s}`,{}),r=s=>e.post("/staffs/staffIncrease",{semail:s.semail,sgender:s.sgender,sname:s.sname,sphone:s.sphone}),d=s=>e.delete(`/staffs/${s}`,{}),g=(s,t)=>e.put(`/staffs/${s}`,{semail:t.semail,sgender:t.sgender,sname:t.sname,sphone:t.sphone});export{f as a,r as b,d,n as g,g as u};
